@@ -131,5 +131,13 @@ document.getElementById("insertButton").onclick = function () {
   gameRunning = true;
   document.getElementById("vidas").innerText = "Vidas: " + lives;
 };
+const audioPath = "audio/";
+const musica = new Audio(audioPath + "forever_young_remix.mp3");
+const sonidoCoin = new Audio(audioPath + "insert-coin.wav");
+const sonidoSalto = new Audio(audioPath + "jump.wav");
+const sonidoMuerte = new Audio(audioPath + "death.wav");
+
+musica.loop = true;
+musica.volume = 0.5;
 
 loop();
