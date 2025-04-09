@@ -28,7 +28,8 @@ function createObstacles() {
   cars.length = 0;
   logs.length = 0;
   for (let i = 0; i < 3; i++) {
-    cars.push({ x: i * 160, y: 12 * tileSize, speed: 2 });
+    cars.push({ x: i * 160, y: 12 * tileSize, speed: 2 });     // Línea 1
+    cars.push({ x: i * 180, y: 11 * tileSize, speed: -2.5 });  // Línea 2 (nueva)
     logs.push({ x: i * 180, y: 6 * tileSize, speed: -1.5 });
   }
 }
@@ -63,7 +64,8 @@ function update() {
 
   for (let car of cars) {
     car.x += car.speed;
-    if (car.x > canvas.width) car.x = -tileSize * 2;
+    if (car.speed > 0 && car.x > canvas.width) car.x = -tileSize * 2;
+    if (car.speed < 0 && car.x < -tileSize * 2) car.x = canvas.width;
     if (collision(frog, { x: car.x, y: car.y, width: tileSize * 2, height: tileSize })) {
       loseLife();
     }
@@ -105,32 +107,6 @@ function collision(a, b) {
   );
 }
 
-function loseLife() {
-  lives--;
-  if (lives <= 0) {
-    gameRunning = false;
-    alert("¡Juego terminado! Presioná 'Insertar Ficha' para reiniciar");
-    document.getElementById("vidas").innerText = "Vidas: 0";
-  } else {
-    frog.reset();
-  }
-}
-
-document.addEventListener("keydown", function (e) {
-  if (!gameRunning) return;
-  if (e.key === "ArrowUp") frog.y -= tileSize;
-  if (e.key === "ArrowDown") frog.y += tileSize;
-  if (e.key === "ArrowLeft") frog.x -= tileSize;
-  if (e.key === "ArrowRight") frog.x += tileSize;
-});
-
-document.getElementById("insertButton").onclick = function () {
-  lives = 5;
-  frog.reset();
-  createObstacles();
-  gameRunning = true;
-  document.getElementById("vidas").innerText = "Vidas: " + lives;
-};
 const audioPath = "audio/";
 const musica = new Audio(audioPath + "forever_young_remix.mp3");
 const sonidoCoin = new Audio(audioPath + "insert-coin.wav");
@@ -150,8 +126,10 @@ document.getElementById("insertButton").onclick = function () {
   sonidoCoin.play();
   musica.play();
 };
+
 document.addEventListener("keydown", function (e) {
   if (!gameRunning) return;
+
   if (e.key === "ArrowUp") frog.y -= tileSize;
   if (e.key === "ArrowDown") frog.y += tileSize;
   if (e.key === "ArrowLeft") frog.x -= tileSize;
@@ -159,6 +137,7 @@ document.addEventListener("keydown", function (e) {
 
   sonidoSalto.play();
 });
+
 function loseLife() {
   lives--;
   sonidoMuerte.play();
@@ -172,6 +151,5 @@ function loseLife() {
     frog.reset();
   }
 }
-
 
 loop();
