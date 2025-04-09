@@ -140,4 +140,38 @@ const sonidoMuerte = new Audio(audioPath + "death.wav");
 musica.loop = true;
 musica.volume = 0.5;
 
+document.getElementById("insertButton").onclick = function () {
+  lives = 5;
+  frog.reset();
+  createObstacles();
+  gameRunning = true;
+  document.getElementById("vidas").innerText = "Vidas: " + lives;
+
+  sonidoCoin.play();
+  musica.play();
+};
+document.addEventListener("keydown", function (e) {
+  if (!gameRunning) return;
+  if (e.key === "ArrowUp") frog.y -= tileSize;
+  if (e.key === "ArrowDown") frog.y += tileSize;
+  if (e.key === "ArrowLeft") frog.x -= tileSize;
+  if (e.key === "ArrowRight") frog.x += tileSize;
+
+  sonidoSalto.play();
+});
+function loseLife() {
+  lives--;
+  sonidoMuerte.play();
+
+  if (lives <= 0) {
+    gameRunning = false;
+    musica.pause();
+    alert("¡Juego terminado! Presioná 'Insertar Ficha' para reiniciar");
+    document.getElementById("vidas").innerText = "Vidas: 0";
+  } else {
+    frog.reset();
+  }
+}
+
+
 loop();
