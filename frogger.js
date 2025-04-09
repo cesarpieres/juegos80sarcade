@@ -124,8 +124,8 @@ document.addEventListener("keydown", function (e) {
   if (e.key === "ArrowRight") frog.x += tileSize;
 });
 
-document.getElementById("startButton").onclick = function () {
-  lives = 3;
+document.getElementById("insertButton").onclick = function () {
+  lives = 5;
   frog.reset();
   createObstacles();
   gameRunning = true;
@@ -133,4 +133,3 @@ document.getElementById("startButton").onclick = function () {
 };
 
 loop();
-
