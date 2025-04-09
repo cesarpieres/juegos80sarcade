@@ -1,48 +1,28 @@
+
 body {
-  background-color: #000;
-  color: #0f0;
-  font-family: 'Courier New', monospace;
+  background-color: black;
+  color: lime;
+  font-family: monospace;
   text-align: center;
   margin: 0;
-  padding: 0;
+  padding: 20px;
 }
-#loading-screen {
-  font-size: 2em;
-  padding: 40vh 0;
-  animation: blink 1s infinite;
-}
-@keyframes blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
-}
-.container.hidden {
-  display: none;
-}
-.container {
-  padding: 2rem;
-}
-ul.game-list {
-  list-style: none;
-  padding: 0;
-}
-ul.game-list li {
-  margin: 10px 0;
-}
-a {
-  color: #0f0;
-  text-decoration: none;
-  font-size: 18px;
-}
-a:hover {
-  color: #ff0;
-}
-#mute-button {
-  position: fixed;
-  top: 10px;
-  right: 10px;
+canvas {
   background: #111;
-  border: 1px solid #0f0;
-  color: #0f0;
-  padding: 5px 10px;
+  border: 3px solid lime;
+  display: block;
+  margin: 20px auto;
+}
+button {
+  background: #222;
+  border: 1px solid lime;
+  color: lime;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 5px;
   cursor: pointer;
+}
+footer {
+  margin-top: 40px;
+  font-size: 12px;
 }
