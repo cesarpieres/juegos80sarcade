@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>PIERES80s - Frogger</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+    }
+    #intro {
+      text-align: center;
+      padding-top: 30vh;
+      font-size: 2em;
+      animation: blink 1s infinite;
+    }
+    canvas {
+      display: none;
+      margin: auto;
+      background: #111;
+      border: 4px solid #0f0;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      padding: 5px;
+      background: #000;
+      color: #080;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="intro">🎮 PIERES ARCADE SYSTEM v1.0<br>LOADING FROGGER...</div>
+  <canvas id="gameCanvas" width="600" height="600"></canvas>
+
+  <footer>
+    📝 Este juego es una recreación educativa y nostálgica de Frogger.<br>
+    Las marcas mencionadas pertenecen a sus respectivos dueños.<br>
+    Proyecto retro sin fines comerciales. PIERES POWERED 🎮
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const frog = {
+      x: 285,
+      y: 570,
+      size: 30,
+      color: 'lime'
+    };
+
+    function drawFrog() {
+      ctx.fillStyle = frog.color;
+      ctx.fillRect(frog.x, frog.y, frog.size, frog.size);
+    }
+
+    function clearCanvas() {
+      ctx.fillStyle = '#111';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function draw() {
+      clearCanvas();
+      drawFrog();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const step = 30;
+      if (e.key === 'ArrowUp') frog.y -= step;
+      if (e.key === 'ArrowDown') frog.y += step;
+      if (e.key === 'ArrowLeft') frog.x -= step;
+      if (e.key === 'ArrowRight') frog.x += step;
+      draw();
+    });
+
+    setTimeout(() => {
+      document.getElementById('intro').style.display = 'none';
+      canvas.style.display = 'block';
+      draw();
+    }, 2000);
+  </script>
+</body>
+</html>
